@@ -1,4 +1,11 @@
 package com.bezy.blogapi.repositories;
 
-public interface PostRepository extends org.springframework.data.jpa.repository.JpaRepository<com.bezy.blogapi.entities.Post, java.lang.Long> {
-  }
+import com.bezy.blogapi.entities.Post;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface PostRepository extends JpaRepository<Post, Long> {
+    boolean existsByTitle(String title);
+    Optional<Post> findByTitle(String title);
+}

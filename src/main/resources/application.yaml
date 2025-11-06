@@ -1,1 +1,14 @@
-spring.application.name=blog-api
+spring:
+  application:
+    name: blog-api
+  datasource:
+    url: jdbc:mysql://localhost:3306/blog_db?CreateDatabaseIfNoExist=true
+    username: root
+    password: Rusamu2003!!
+  jpa:
+    show-sql: true
+    ddl-auto: update
+  jwt:
+    secret: ${JWT_SECRET} # your super secretkey with at least 256 bits
+    accessTokenExpiration: 1200 # in seconds
+    refreshTokenExpiration: 604800 # in days
