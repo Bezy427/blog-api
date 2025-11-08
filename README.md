@@ -36,11 +36,7 @@ cd blog-api
 2. **Configure environment variables**
 Create a `.env` file in the project root with:
 ```
-DB_HOST=your_database_host
-DB_USER=your_database_user
-DB_PASSWORD=your_database_password
 JWT_SECRET=your_secret_key
-PORT=3000
 ```
 
 3. **Run the API**
