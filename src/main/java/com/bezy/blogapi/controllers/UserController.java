@@ -300,7 +300,7 @@ public class UserController {
     ){
         var post = postRepository.findById(id).orElse(null);
         if(post == null){
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok("Post not found!");
         }
         postRepository.delete(post);
         return ResponseEntity.ok("Post has been deleted successfully!");

@@ -1,9 +1,7 @@
 package com.bezy.blogapi.dtos;
 
 import com.bezy.blogapi.entities.Role;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NonNull;
 
@@ -15,9 +13,12 @@ public class RegisterUserRequest {
     private Long id;
 
     @NotBlank(message = "Username is required!")
+    @Pattern(regexp="^[\\w\\s-]+$]")
     private String username;
 
     @NotBlank(message = "Password is required!")
+    @Min(value=4, message = "Password must be greater than or equal to 5!")
+    @Max(value=10, message = "Password must be less than or equal to 10!")
     private String password;
 
     @NotBlank(message = "Confirm password is required")
@@ -28,7 +29,7 @@ public class RegisterUserRequest {
         return password != null && password.equals(confirmPassword);
     }
 
-    @Email
+    @Email(message = "Email must be valid!")
     @NotBlank(message = "Email is required!")
     private String email;
 
