@@ -21,7 +21,7 @@ public class Comment {
     @Column(name = "text")
     private String text;
 
-    @Column(name = "created_at")
+    @Column(name = "createdAt")
     private LocalDateTime createdAt;
 
     @Column(name = "posts")
