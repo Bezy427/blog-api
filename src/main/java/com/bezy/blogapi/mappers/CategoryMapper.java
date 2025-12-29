@@ -1,7 +1,6 @@
 package com.bezy.blogapi.mappers;
 
 import com.bezy.blogapi.dtos.CategoryDto;
-import com.bezy.blogapi.dtos.RegisterCategoryRequest;
 import com.bezy.blogapi.dtos.UpdateCategoryRequest;
 import com.bezy.blogapi.entities.Category;
 import org.mapstruct.Mapper;

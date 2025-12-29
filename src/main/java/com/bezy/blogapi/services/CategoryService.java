@@ -4,7 +4,6 @@ import com.bezy.blogapi.dtos.RegisterCategoryRequest;
 import com.bezy.blogapi.dtos.UpdateCategoryRequest;
 import com.bezy.blogapi.entities.Category;
 import com.bezy.blogapi.mappers.CategoryMapper;
-import com.bezy.blogapi.mappers.ProfileMapper;
 import com.bezy.blogapi.repositories.CategoryRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
