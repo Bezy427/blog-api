@@ -1,11 +1,9 @@
 package com.bezy.blogapi.services;
 
-import com.bezy.blogapi.dtos.PostDto;
 import com.bezy.blogapi.dtos.RegisterPostRequest;
 import com.bezy.blogapi.dtos.UpdatePostRequest;
 import com.bezy.blogapi.entities.Post;
 import com.bezy.blogapi.mappers.PostMapper;
-import com.bezy.blogapi.mappers.ProfileMapper;
 import com.bezy.blogapi.repositories.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

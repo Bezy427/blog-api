@@ -3,7 +3,6 @@ package com.bezy.blogapi.services;
 import com.bezy.blogapi.dtos.RegisterTagRequest;
 import com.bezy.blogapi.dtos.UpdateTagRequest;
 import com.bezy.blogapi.entities.Tag;
-import com.bezy.blogapi.mappers.ProfileMapper;
 import com.bezy.blogapi.mappers.TagMapper;
 import com.bezy.blogapi.repositories.TagRepository;
 import org.springframework.http.ResponseEntity;
