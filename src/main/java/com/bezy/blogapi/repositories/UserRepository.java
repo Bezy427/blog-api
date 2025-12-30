@@ -1,8 +1,6 @@
 package com.bezy.blogapi.repositories;
 
-import com.bezy.blogapi.entities.Tag;
 import com.bezy.blogapi.entities.User;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.JpaRepository;
 
