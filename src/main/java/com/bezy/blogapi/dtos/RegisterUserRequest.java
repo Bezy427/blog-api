@@ -3,10 +3,8 @@ package com.bezy.blogapi.dtos;
 import com.bezy.blogapi.entities.Role;
 import jakarta.validation.constraints.*;
 import lombok.Data;
-import lombok.NonNull;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 
 @Data
 public class RegisterUserRequest {

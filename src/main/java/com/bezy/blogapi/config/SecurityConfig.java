@@ -2,7 +2,6 @@ package com.bezy.blogapi.config;
 
 import com.bezy.blogapi.entities.Role;
 import com.bezy.blogapi.filters.JwtAuthenticationFilter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
