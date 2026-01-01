@@ -1,10 +1,8 @@
 package com.bezy.blogapi.dtos;
 
 import com.bezy.blogapi.entities.Status;
-import com.bezy.blogapi.entities.User;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import lombok.NonNull;
 
 import java.time.Instant;
 
