@@ -3,7 +3,6 @@ package com.bezy.blogapi.dtos;
 import com.bezy.blogapi.entities.User;
 import lombok.Data;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Data
