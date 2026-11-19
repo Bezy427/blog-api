@@ -1,3 +1,4 @@
+
 package com.bezy.blogapi.services;
 
 import com.bezy.blogapi.entities.Role;
@@ -10,6 +11,7 @@ import java.util.Date;
 
 @Data
 public class Jwt {
+
     private final Claims claims;
     private final SecretKey secretKey;
 
@@ -27,8 +29,14 @@ public class Jwt {
     }
 
     public Role getRole() {
+        return Role.valueOf(claims.get("role", String.class));
     }
 
+    public String getTokenType() {
+        return claims.get("tokenType", String.class);
+    }
+
+    @Override
     public String toString() {
         return Jwts.builder()
                 .claims(claims)
