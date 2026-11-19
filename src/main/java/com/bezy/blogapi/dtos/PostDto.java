@@ -1,3 +1,4 @@
+
 package com.bezy.blogapi.dtos;
 
 import com.bezy.blogapi.entities.Status;
@@ -7,6 +8,7 @@ import java.time.Instant;
 
 @Data
 public class PostDto {
+
     private String title;
     private Long id;
     private String content;
