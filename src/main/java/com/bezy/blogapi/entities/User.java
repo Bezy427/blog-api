@@ -1,17 +1,23 @@
+
 package com.bezy.blogapi.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.core.env.Profiles;
 
 import java.time.Instant;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "users", schema = "blog_db")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,10 +33,12 @@ public class User {
 
     private Instant createdAt;
 
+    @OneToMany(mappedBy = "author")
+    private Set<Post> posts = new LinkedHashSet<>();
+
     @OneToMany(mappedBy = "user")
     private Set<Comment> comments = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "users")
-    private Set<Profile> profiles = new LinkedHashSet<>();
-
-    }
+    @OneToMany(mappedBy = "user")
+    private List<Profile> profiles;
+}
