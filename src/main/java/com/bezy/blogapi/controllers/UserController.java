@@ -6,6 +6,7 @@ import com.bezy.blogapi.entities.User;
 import com.bezy.blogapi.mappers.*;
 import com.bezy.blogapi.repositories.*;
 import com.bezy.blogapi.services.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,19 +38,40 @@ public class UserController {
     private CommentService commentService;
     private PostService postService;
 
+
     @PostMapping("/users")
     public ResponseEntity<?> createUser(
+            @Valid @RequestBody RegisterUserRequest request
+    ) {
+
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
+            return ResponseEntity.badRequest()
+                    .body("Username already exists!");
         }
 
         if (userRepository.existsByEmail(request.getEmail())) {
+            return ResponseEntity.badRequest()
+                    .body("Email already exists!");
         }
+
+        if (!request.getPassword().equals(request.getConfirmPassword())) {
+            return ResponseEntity.badRequest()
+                    .body("Passwords do not match!");
+        }
+
         User user = new User();
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(Role.USER);
+
+        User savedUser = userRepository.save(user);
+
+        return ResponseEntity
+                .status(org.springframework.http.HttpStatus.CREATED)
+                .body(userMapper.toDto(savedUser));
     }
+
 
     @PutMapping("/users/{id}")
     public ResponseEntity<?> updateUserById(
