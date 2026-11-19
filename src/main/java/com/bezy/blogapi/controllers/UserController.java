@@ -39,25 +39,16 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<?> createUser(
-            @RequestBody RegisterUserRequest request
-    ) {
-        if(userRepository.findByUsername(request.getUsername()).isPresent()){
-            return ResponseEntity.badRequest().body("Username already exists!");
+        if (userRepository.findByUsername(request.getUsername()).isPresent()) {
         }
 
         if (userRepository.existsByEmail(request.getEmail())) {
-            return ResponseEntity.badRequest().body("Email already exists!");
         }
         User user = new User();
-        user.setId(request.getId());
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setConfirmPassword(request.getConfirmPassword());
         user.setRole(Role.USER);
-        user.setCreatedAt(request.getCreatedAt());
-        userRepository.save(user);
-        return ResponseEntity.ok("User has been created!");
     }
 
     @PutMapping("/users/{id}")
@@ -258,52 +249,9 @@ public class UserController {
         return ResponseEntity.ok("Tag has been removed!");
     }
 
-    @PostMapping("/posts")
-    public ResponseEntity<?> createPost(
-            @RequestBody RegisterPostRequest request
-    ){
-        if(postRepository.findByTitle(request.getTitle()).isPresent()){
-            return ResponseEntity.badRequest().body("Title already exists!");
-        }
 
-        postService.createPost(request);
-        return ResponseEntity.ok("Post has been created!");
-    }
 
-    @PutMapping("/posts/{id}")
-    public ResponseEntity<?> updatePostById(
-            @PathVariable Long id,
-            @RequestBody UpdatePostRequest request
-    ){
-        postService.updatePostById(id, request);
-        return ResponseEntity.ok("Post has been updated successfully!");
-    }
 
-    @GetMapping("/posts")
-    public Iterable<?> getAllPosts(){
-        postService.getAllPosts();
-        return postRepository.findAll();
-    }
-
-    @GetMapping("/posts/{id}")
-    public ResponseEntity<?> getPostById(
-            @PathVariable Long id
-    ){
-        postService.getPostById(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("/posts/{id}")
-    public ResponseEntity<?> deletePostById(
-            @PathVariable Long id
-    ){
-        var post = postRepository.findById(id).orElse(null);
-        if(post == null){
-            return ResponseEntity.ok("Post not found!");
-        }
-        postRepository.delete(post);
-        return ResponseEntity.ok("Post has been deleted successfully!");
-    }
 
     @PostMapping("/profiles")
     public ResponseEntity<?> createProfile(

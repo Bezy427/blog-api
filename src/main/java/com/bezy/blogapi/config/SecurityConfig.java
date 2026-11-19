@@ -27,14 +27,13 @@ public class SecurityConfig {
     private final UserDetailsService userDetailsService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    public SecurityConfig(UserDetailsService userDetailsService, JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.userDetailsService = userDetailsService;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-       return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -46,36 +45,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
     @Bean
-    public SecurityFilterChain securityWebFilterChain(HttpSecurity http) throws Exception {
         http
-                .sessionManagement(c -> c
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests( c -> c
-                        .requestMatchers(HttpMethod.DELETE, "/api/users/**").hasRole(Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.DELETE,"/api/profiles/**").hasRole(Role.ADMIN.name())
-                        .requestMatchers("/api/posts/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/profiles/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
-                        .requestMatchers("/api/comments/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/refresh").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling(c -> {
-                    c.authenticationEntryPoint(
-                            new HttpStatusEntryPoint(HttpStatus.FORBIDDEN));
-                    c.accessDeniedHandler((request, response, accessDeniedException) -> {
-                        response.setStatus(HttpStatus.FORBIDDEN.value());
-                    });
-                });
 
         return http.build();
     }

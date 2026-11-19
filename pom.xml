@@ -144,7 +144,6 @@
                 <configuration>
                     <url>jdbc:mysql://localhost:3306/blog_db?CreateDatabaseIfNotExist=true</url>
                     <user>root</user>
-                    <password>yourpassword</password>
                 </configuration>
             </plugin>
         </plugins>

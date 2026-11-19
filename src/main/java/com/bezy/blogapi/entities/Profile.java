@@ -14,11 +14,7 @@ public class Profile {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id")
     private User users;
 
     @Column(name = "bio")
     private String bio;
-
-}

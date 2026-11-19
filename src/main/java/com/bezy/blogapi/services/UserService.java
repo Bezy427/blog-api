@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -18,14 +17,11 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        var user = userRepository.findByEmail(email).orElseThrow(() ->
-                new UsernameNotFoundException("User not found!"));
+                        new UsernameNotFoundException("User not found!"));
 
         return new User(
                 user.getEmail(),
                 user.getPassword(),
-                Collections.emptyList()
         );
     }
 }
