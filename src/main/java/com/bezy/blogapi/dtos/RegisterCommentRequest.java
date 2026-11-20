@@ -1,15 +1,16 @@
+
 package com.bezy.blogapi.dtos;
 
-import com.bezy.blogapi.entities.User;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 @Data
 public class RegisterCommentRequest {
-    private Long id;
+
+    @NotBlank(message = "Comment text is required!")
     private String text;
-    private LocalDateTime createdAt;
-    private String posts;
-    private User user;
+
+    @NotNull(message = "Post ID is required!")
+    private Long postId;
 }

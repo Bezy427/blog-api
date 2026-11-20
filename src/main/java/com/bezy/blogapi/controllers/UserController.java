@@ -9,6 +9,7 @@ import com.bezy.blogapi.services.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -122,13 +123,15 @@ public class UserController {
         return ResponseEntity.ok("User has been deleted!");
     }
 
+
     @PostMapping("/comments")
     public ResponseEntity<?> createComment(
-            @RequestBody RegisterCommentRequest request
-    ){
-        commentService.addComment(request);
-        return ResponseEntity.ok("Comment has been added!");
+            @Valid @RequestBody RegisterCommentRequest request,
+            Authentication authentication
+    ) {
+        return commentService.addComment(request, authentication);
     }
+
 
     @PutMapping("/comments/{id}")
     public ResponseEntity<?> updateCommentById(
