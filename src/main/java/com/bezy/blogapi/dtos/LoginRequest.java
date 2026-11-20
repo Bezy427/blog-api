@@ -1,6 +1,5 @@
 package com.bezy.blogapi.dtos;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
