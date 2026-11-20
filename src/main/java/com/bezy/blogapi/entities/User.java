@@ -3,7 +3,6 @@ package com.bezy.blogapi.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.core.env.Profiles;
 
 import java.time.Instant;
 import java.util.LinkedHashSet;
