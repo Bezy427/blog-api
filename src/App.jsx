@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Posts from './pages/Posts';
 import CreatePost from './pages/CreatePost';
+import Profile from './pages/Profile';
 import EditPost from './pages/EditPost';
 import Navbar from './components/Navbar';
 import Footer from "./components/Footer";
@@ -34,6 +35,15 @@ function App() {
               element={
                 <ProtectedRoute>
                   <CreatePost />
+                </ProtectedRoute>
+              }
+            />
+            
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
                 </ProtectedRoute>
               }
             />
