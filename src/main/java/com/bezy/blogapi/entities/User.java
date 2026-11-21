@@ -3,6 +3,7 @@ package com.bezy.blogapi.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 import java.util.LinkedHashSet;
@@ -30,6 +31,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "created_at")
+    @CreationTimestamp
     private Instant createdAt;
 
     @OneToMany(mappedBy = "author")
