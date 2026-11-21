@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: blog-api
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/blog_db?createDatabaseIfNotExist=true
+    username: root
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  jwt:
+    secret: ${SECRET_KEY}
+    accessTokenExpiration: 1200
+    refreshTokenExpiration: 604800
+
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
