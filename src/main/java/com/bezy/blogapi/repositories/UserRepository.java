@@ -1,17 +1,22 @@
+
 package com.bezy.blogapi.repositories;
 
 import com.bezy.blogapi.entities.User;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+
     boolean existsByEmail(String email);
 
-    Optional<User> findByUsername(@NotBlank(message = "Username is required!") String username);
+    boolean existsByUsername(String username);
 
-    Optional<User> findByEmail(@NotBlank(message = "Email is required!") String email);
+    boolean existsByEmailAndIdNot(String email, Long id);
 
-    @NotBlank(message = "Email is required!") String email(String email);
+    boolean existsByUsernameAndIdNot(String username, Long id);
+
+    Optional<User> findByUsername(String username);
+
+    Optional<User> findByEmail(String email);
 }
