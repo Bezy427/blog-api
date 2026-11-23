@@ -13,13 +13,22 @@ public class Profile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_id", nullable = false, unique = true)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(
+            name = "users_id",
+            nullable = false,
+            unique = true
+    )
     private User user;
 
-    @Column(name = "bio")
+    @Column(length = 500)
     private String bio;
+
+    @Column(name = "avatar_url", length = 1000)
+    private String avatarUrl;
+
+    @Column(name = "avatar_file_id", length = 255)
+    private String avatarFileId;
 }
