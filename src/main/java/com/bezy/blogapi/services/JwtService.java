@@ -38,22 +38,28 @@ public class JwtService {
             long tokenExpiration,
             String tokenType
     ) {
+
+        long now = System.currentTimeMillis();
+
         var claims = Jwts.claims()
                 .subject(user.getId().toString())
                 .add("username", user.getUsername())
                 .add("email", user.getEmail())
                 .add("role", user.getRole().name())
                 .add("tokenType", tokenType)
-                .issuedAt(new Date())
-                .expiration(new Date(
-                        System.currentTimeMillis() + 1000L * tokenExpiration
-                ))
+                .issuedAt(new Date(now))
+                .expiration(new Date(now + 1000L * tokenExpiration))
                 .build();
 
         return new Jwt(claims, jwtConfig.getSecretKey());
     }
 
     public Jwt parseToken(String token) {
+
+        if (token == null || token.isBlank()) {
+            return null;
+        }
+
         try {
             var claims = getClaims(token);
 
@@ -71,6 +77,7 @@ public class JwtService {
     }
 
     private Claims getClaims(String token) {
+
         return Jwts.parser()
                 .verifyWith(jwtConfig.getSecretKey())
                 .build()

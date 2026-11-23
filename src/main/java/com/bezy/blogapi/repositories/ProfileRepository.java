@@ -1,3 +1,4 @@
+
 package com.bezy.blogapi.repositories;
 
 import com.bezy.blogapi.entities.Profile;
@@ -6,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
-    boolean existsByBio(String bio);
-    Optional<Profile> findByBio(String bio);
 
-    Long id(Long id);
+    Optional<Profile> findByUserId(Long userId);
+
+    boolean existsByUserId(Long userId);
 }

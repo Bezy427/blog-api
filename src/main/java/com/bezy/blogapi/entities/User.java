@@ -41,6 +41,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Comment> comments = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private List<Profile> profiles;
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private Profile profile;
 }
