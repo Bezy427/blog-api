@@ -27,16 +27,28 @@ public class ImageKitStorageService {
 
     public record UploadedImage(String url, String fileId) {}
 
+
     public UploadedImage uploadAvatar(MultipartFile file) {
 
         if (file == null || file.isEmpty()) {
+            log.warn("Avatar upload rejected: no file received.");
+
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Please select an image."
             );
         }
 
+        log.info(
+                "Avatar upload received: filename={}, contentType={}, size={} bytes",
+                file.getOriginalFilename(),
+                file.getContentType(),
+                file.getSize()
+        );
+
         if (file.getSize() > MAX_FILE_SIZE) {
+            log.warn("Avatar upload rejected: file exceeds 5 MB.");
+
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Image must not exceed 5 MB."
@@ -47,6 +59,8 @@ public class ImageKitStorageService {
             byte[] bytes = file.getBytes();
 
             String extension = detectImageExtension(bytes);
+
+            log.info("Avatar image validated successfully: {}", extension);
 
             String fileName = "avatar-" + UUID.randomUUID()
                     + "." + extension;
@@ -70,15 +84,20 @@ public class ImageKitStorageService {
                             "ImageKit did not return a file ID."
                     ));
 
+            log.info("Avatar uploaded successfully to ImageKit.");
+
             return new UploadedImage(imageUrl, fileId);
 
         } catch (IOException exception) {
+            log.error("Failed to read uploaded avatar.", exception);
+
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "Could not read the uploaded image."
             );
         }
     }
+
 
     public void deleteImage(String fileId) {
 
