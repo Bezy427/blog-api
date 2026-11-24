@@ -1,22 +1,22 @@
 
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const { user, loading, logout } = useAuth();
     const navigate = useNavigate();
 
-    // Adjust these keys to match your existing authentication implementation.
-    const token = localStorage.getItem("token");
-    const isLoggedIn = Boolean(token);
+    const isLoggedIn = Boolean(user);
 
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("refreshToken");
+    const handleLogout = async () => {
+        await logout();
         setMenuOpen(false);
         navigate("/login");
-        window.location.reload();
     };
+
+    const closeMenu = () => setMenuOpen(false);
 
     const navLinkClass = ({ isActive }) =>
         `text-sm font-semibold transition ${
@@ -32,7 +32,7 @@ export default function Navbar() {
                 {/* Logo */}
                 <Link
                     to="/"
-                    onClick={() => setMenuOpen(false)}
+                    onClick={closeMenu}
                     className="flex items-center gap-3"
                 >
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-lg font-extrabold text-white">
@@ -43,6 +43,7 @@ export default function Navbar() {
                         <span className="block text-lg font-extrabold tracking-tight text-slate-900">
                             Tech<span className="text-blue-600">Blog</span>
                         </span>
+
                         <span className="block text-[10px] font-medium uppercase tracking-[0.2em] text-slate-400">
                             Ideas & Innovation
                         </span>
@@ -66,7 +67,9 @@ export default function Navbar() {
                     )}
 
                     <div className="ml-3 flex items-center gap-3">
-                        {isLoggedIn ? (
+                        {loading ? (
+                            <div className="h-10 w-24 animate-pulse rounded-lg bg-slate-100" />
+                        ) : isLoggedIn ? (
                             <>
                                 <Link
                                     to="/profile"
@@ -125,7 +128,7 @@ export default function Navbar() {
                         <NavLink
                             to="/"
                             end
-                            onClick={() => setMenuOpen(false)}
+                            onClick={closeMenu}
                             className={navLinkClass}
                         >
                             Home
@@ -133,17 +136,21 @@ export default function Navbar() {
 
                         <NavLink
                             to="/posts"
-                            onClick={() => setMenuOpen(false)}
+                            onClick={closeMenu}
                             className={navLinkClass}
                         >
                             Articles
                         </NavLink>
 
-                        {isLoggedIn && (
+                        {loading ? (
+                            <p className="text-sm text-slate-400">
+                                Checking session...
+                            </p>
+                        ) : isLoggedIn ? (
                             <>
                                 <NavLink
                                     to="/dashboard"
-                                    onClick={() => setMenuOpen(false)}
+                                    onClick={closeMenu}
                                     className={navLinkClass}
                                 >
                                     Dashboard
@@ -151,7 +158,7 @@ export default function Navbar() {
 
                                 <Link
                                     to="/profile"
-                                    onClick={() => setMenuOpen(false)}
+                                    onClick={closeMenu}
                                     className="text-sm font-semibold text-slate-600"
                                 >
                                     My Profile
@@ -164,13 +171,11 @@ export default function Navbar() {
                                     Logout
                                 </button>
                             </>
-                        )}
-
-                        {!isLoggedIn && (
+                        ) : (
                             <div className="flex gap-3 border-t border-slate-100 pt-4">
                                 <Link
                                     to="/login"
-                                    onClick={() => setMenuOpen(false)}
+                                    onClick={closeMenu}
                                     className="flex-1 rounded-lg border border-slate-200 px-4 py-3 text-center text-sm font-semibold text-slate-700"
                                 >
                                     Login
@@ -178,7 +183,7 @@ export default function Navbar() {
 
                                 <Link
                                     to="/register"
-                                    onClick={() => setMenuOpen(false)}
+                                    onClick={closeMenu}
                                     className="flex-1 rounded-lg bg-blue-600 px-4 py-3 text-center text-sm font-semibold text-white"
                                 >
                                     Get Started
